@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Blog</title>
+</head>
+
+<body>
+    <nav>
+        <div class="s-title">
+            <a href="/">
+                <h1>EJS LOGO</h1>
+            </a>
+        </div>
+        <ul>
+       
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/blog/create">New Blog</a></li>
+        </ul>
+    </nav>
+
+    <div class="blogs content">
+        <h2>All Blog</h2>
+
+        <%    if(blogs.length > 0){ %>
+
+        <% blogs.forEach(blog => { %>
+        <h3 class="blog-title"><%=blog.title %></h3>
+        <p class="blog-snippet"><%=blog.snippet %></p>
+        <% });  %>
+
+        <% } else { %>
+        <p>Empty Blogs</p>
+        <% }%>
+
+
+    </div>
+</body>
+
+</html>
