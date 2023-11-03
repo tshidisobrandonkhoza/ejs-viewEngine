@@ -1,20 +1,7 @@
 const express = require('express');
 const router = express.Router();
- 
+const { blogs_details } = require('../controllers/blogsController');
 
-router.get('/:blogid', async (req, res) => {
-    await Blog.findById({ _id: req.params.blogid })
-        .then(results => {
-
-
-            res.status(200).render('blog', {
-                title: 'Ejs Website',
-                page: 'Blogs',
-                blog: results
-            });
-
-        }).catch(err => console.log(err));
-
-});
+router.get('/:blogid',blogs_details);
 
 module.exports = router;

@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
- 
+const { all_blogs, blogs_post, blogs_delete } = require('../controllers/blogsController');
 
-const Blog = require('../model/blog');
 
 router.get('/create', (req, res) => {
     res.render('newblog', {
@@ -11,45 +10,11 @@ router.get('/create', (req, res) => {
     });
 });
 
-router.get('/', async (req, res) => {
+router.get('/', all_blogs);
 
-    await Blog.find({}).sort({ createdAt: -1 })
-        .then(results => {
+router.post('/', blogs_post);
 
-            res.status(200).render('blogs', {
-                title: 'Ejs Website',
-                page: 'Blogs',
-                blogs: results
-            });
-
-        }).catch(err => console.log(err));
-
-});
-
-router.post('/', async (req, res) => {
-    await Blog.create(req.body)
-        .then(results => {
-            console.log('Added Blog')
-            res.status(201).redirect('/blogs');
-
-        }).catch(err => console.log(err));
-});
-
-router.delete('/:blogid', async (req, res) => {
-    await Blog.findById({ _id: req.params.blogid })
-        .then(async results => {
-            if (results != null) {
-                return Blog.deleteOne(req.params.itemsid).then(result => {
-                    console.log(`Deleted`)
-                    res.status(200).json({ msg: 'Succesfully Deleted', redirect: '/blogs' });
-                }).catch(err => console.log(err));
-            } else {
-                console.log(`Couldnt find the blog id : ${req.params.id}`)
-            }
-
-        }).catch(err => console.log(err));
-
-});
+router.delete('/:blogid', blogs_delete);
 
 
 module.exports = router;
