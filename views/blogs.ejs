@@ -1,0 +1,59 @@
+<html lang="en">
+
+
+<%- include('./partials/head.ejs') %>
+
+
+<body>
+
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="blogs content">
+        <h2>All Blog</h2>
+
+        <%    if(blogs.length > 0){ %>
+
+        <% blogs.forEach(blog => { %>
+
+        <h3 class="blog-title"><%=blog.title %></h3>
+        <p class="blog-snippet"><%=blog.snippet %></p>
+        <div>
+            <a href="blog/<%=blog._id%>">View </a> <a href="#">Edit </a>
+            <a class="delete-blog" data-me="<%=blog._id%>">Delete </a>
+        </div>
+        <hr>
+        <% });  %>
+
+        <% } else { %>
+        <p>Empty Blogs</p>
+        <% }%>
+
+
+    </div>
+    <%- include('./partials/footer.ejs') %>
+
+
+    <script>
+        //   ajButton.disabled = true;
+
+        const trashbin = document.querySelectorAll('a.delete-blog');
+        const trashbinAll = [...trashbin];
+
+        trashbinAll.forEach(section => {
+            var endpoint = `/blogs/${section.dataset.me}`;
+            section.addEventListener('click', e => {
+                deleteBlog(endpoint);
+            });
+        });
+
+        function deleteBlog(endRes) {
+            fetch(endRes, {
+                    method: 'DELETE'
+                }).then(async (response) => response.json())
+                .then(results => window.location.href = results.redirect)
+                .catch(err => console.log(err));
+        }
+    </script>
+</body>
+
+</html>

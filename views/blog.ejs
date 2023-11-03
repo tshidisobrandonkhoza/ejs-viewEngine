@@ -1,43 +1,33 @@
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> | Blog</title>
-</head>
+
+<%- include('./partials/head.ejs') %>
+
 
 <body>
-    <nav>
-        <div class="s-title">
-            <a href="/">
-                <h1>EJS LOGO</h1>
-            </a>
-        </div>
-        <ul>
-       
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/blog/create">New Blog</a></li>
-        </ul>
-    </nav>
+
+    <%- include('./partials/nav.ejs') %>
 
     <div class="blogs content">
         <h2>All Blog</h2>
 
-        <%    if(blogs.length > 0){ %>
+        <%    if(blog != null){ %>
 
-        <% blogs.forEach(blog => { %>
+    
+
         <h3 class="blog-title"><%=blog.title %></h3>
         <p class="blog-snippet"><%=blog.snippet %></p>
-        <% });  %>
-
+        <p class="blog-body"><%=blog.body %></p> 
+        <hr>
+   
         <% } else { %>
-        <p>Empty Blogs</p>
+        <p>Empty Blog</p>
         <% }%>
 
 
     </div>
+    <%- include('./partials/footer.ejs') %>
+
 </body>
 
 </html>
